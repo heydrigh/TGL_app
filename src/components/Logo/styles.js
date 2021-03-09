@@ -2,18 +2,17 @@ import styled, { css } from "styled-components";
 
 export const Wrapper = styled.View`
 	align-items: center;
-	margin-top: 80px;
 `;
 
 export const BottonLine = styled.View`
 	border: 4px solid #b5c401;
 	border-radius: 10px;
-	width: 116px
-		${(props) =>
-			props.size === "small" &&
-			css`
-				width: 86px;
-			`};
+	width: 116px;
+	${(props) =>
+		props.size === "small" &&
+		css`
+			width: 86px;
+		`};
 `;
 
 export const Header = styled.Text`
