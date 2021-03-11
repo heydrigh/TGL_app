@@ -24,7 +24,7 @@ const Input = ({ name, ...rest }) => {
 			labelHeight={5}
 			iconClass={FontAwesomeIcon}
 			iconName={""}
-			iconColor={"#9D9D9D"}
+			iconColor={"#fff"}
 			autoCapitalize={"none"}
 		/>
 	);
