@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.View`
 	padding-left: 20px;
 	padding-right: 20px;
+	flex: 1;
 `;
 
 export const Header = styled.Text`
@@ -25,4 +26,9 @@ export const ButtonsContainer = styled.View`
 	flex-direction: row;
 `;
 
-export const GamesContainer = styled.ScrollView``;
+export const GamesContainer = styled.View`
+	margin-top: 40px;
+	padding-right: 4px;
+	margin-left: -10px;
+	flex: 1;
+`;

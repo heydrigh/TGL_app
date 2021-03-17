@@ -5,7 +5,7 @@ import * as actions from "../../actions/auth";
 export function* authSagas({ payload }) {
 	try {
 		const response = yield call(api.post, "sessions", payload);
-		console.log(response);
+
 		api.defaults.headers.common[
 			"Authorization"
 		] = `Bearer ${response.data.token.token}`;

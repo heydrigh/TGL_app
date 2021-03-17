@@ -13,3 +13,11 @@ export const Wrapper = styled.View`
 export const LogoutButton = styled.TouchableOpacity`
 	margin-top: 20px;
 `;
+
+export const CartButton = styled.TouchableOpacity`
+	position: absolute;
+	right: 70px;
+	bottom: 22px;
+`;
+
+export const CartText = styled.Text``;

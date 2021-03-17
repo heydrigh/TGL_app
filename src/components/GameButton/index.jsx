@@ -1,14 +1,9 @@
 import React from "react";
 import * as S from "./styles";
 
-const GameButton = ({ clicked, color, lotteryName, active }) => {
+const GameButton = ({ pressed, color, lotteryName, active, ...rest }) => {
 	return (
-		<S.Wrapper
-			onClick={clicked}
-			color={color}
-			value={lotteryName}
-			active={active}
-		>
+		<S.Wrapper {...rest} color={color} value={lotteryName} active={active}>
 			<S.ButtonText color={color} active={active}>
 				{lotteryName}
 			</S.ButtonText>
