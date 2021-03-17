@@ -15,5 +15,6 @@ export function* authSagas({ payload }) {
 		yield put(actions.authSuccess(response.data.token, response.data.user));
 	} catch (err) {
 		yield put(actions.authFail(err));
+		alert("Algo errado ao fazer login, tente de novo");
 	}
 }

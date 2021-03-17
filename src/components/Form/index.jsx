@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Input from "../../components/Input";
 import { useDispatch, useSelector } from "react-redux";
+import api from "../../services/api";
 import { useForm } from "react-hook-form";
 import { authRequest } from "../../store/actions/auth/actions";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -28,6 +29,21 @@ const Form = () => {
 
 	const handleLogin = (data) => {
 		dispatch(authRequest(data.email, data.password));
+	};
+
+	const handleSignUp = async (data) => {
+		const submitedData = {
+			...data,
+			password_confirmation: data.password,
+		};
+		try {
+			const response = await api.post("/users", submitedData);
+			setcurrentMethod("signIn");
+			alert("Sua conta foi criado com sucesso! Faça login e comece a jogar");
+			return response;
+		} catch (error) {
+			alert(error.message);
+		}
 	};
 
 	return (
@@ -107,7 +123,7 @@ const Form = () => {
 								<Feather name="eye-off" size={24} color="#c1c1c1" />
 							)}
 						</S.ShowPasswordButton>
-						<S.RegisterButton>
+						<S.RegisterButton onPress={handleSubmit(handleSignUp)}>
 							<S.RegisterButtonText>
 								Register
 								<AntDesign name="arrowright" size={28} color="#b5c401" />

@@ -27,6 +27,7 @@ export const CloseButton = styled.TouchableOpacity`
 export const CloseText = styled.Text``;
 
 export const BetsContainer = styled.View`
+	padding-top: 10px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 

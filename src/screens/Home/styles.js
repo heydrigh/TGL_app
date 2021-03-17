@@ -32,3 +32,10 @@ export const GamesContainer = styled.View`
 	margin-left: -10px;
 	flex: 1;
 `;
+
+export const EmptyGame = styled.Text`
+	font: italic normal bold 18px "sans-serif";
+	letter-spacing: 0px;
+	color: #868686;
+	margin-top: 20px;
+`;

@@ -16,12 +16,13 @@ const NewBet = ({ navigation }) => {
 	const [selectedNumbers, setSelectedNumbers] = useState([]);
 	const [buttonTypes, setButtonTypes] = useState([]);
 	const [defaultColor, setDefaultColor] = useState("#ADC0C4");
-	const [rules, setRules] = useState({});
+
 	const [loadingGames, setLoadingGames] = useState(false);
 	const [chosenGame, setChosenGame] = useState("");
 	const [instruction, setInstruction] = useState(
 		"Escolha um jogo para começar!"
 	);
+	const [rules, setRules] = useState({});
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -33,6 +34,7 @@ const NewBet = ({ navigation }) => {
 		try {
 			const response = await api.get("/types");
 			setButtonTypes(response.data);
+			setRules(buttonTypes[0]);
 			setLoadingGames(false);
 		} catch (error) {
 			console.log(error.message);
@@ -56,11 +58,15 @@ const NewBet = ({ navigation }) => {
 				return game.type === gameName;
 			});
 
-			setRules(filteredGame[0]);
-			if (filteredGame[0]) {
+			if (!loadingGames) {
+				setRules(filteredGame[0]);
+			}
+
+			if (filteredGame[0] && !loadingGames) {
 				setDefaultColor(filteredGame[0].color);
 			}
 
+			console.log(buttonTypes[0]);
 			clearGameHandler();
 		},
 		[rules, chosenGame, selectableNumbers]
@@ -71,10 +77,10 @@ const NewBet = ({ navigation }) => {
 	};
 
 	const handleSelectedNumber = (number) => {
-		if (selectedNumbers.length === rules.max_number) {
-			alert("O numero maximo de jogos foi escolhido");
-			return;
-		}
+		// if (selectedNumbers.length === rules.max_number) {
+		// 	alert("O numero maximo de jogos foi escolhido");
+		// 	return;
+		// }
 		const numbers = [...selectedNumbers];
 		const actives = isActive;
 		numbers.push(number);

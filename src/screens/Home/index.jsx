@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, ScrollView } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import * as S from "./styles";
 import GameButton from "../../components/GameButton";
 import Menu from "../../components/Menu";
@@ -18,24 +19,6 @@ const Home = ({ navigation }) => {
 		loadGames();
 	}, []);
 
-	// useEffect(() => {
-	// 	let newBets = [];
-	// 	activeButton.forEach((act, index) => {
-	// 		if (act) {
-	// 			newBets = [
-	// 				...newBets,
-	// 				...games.filter((game) => game.game === buttonTypes.name),
-	// 			];
-	// 		}
-	// 	});
-
-	// 	if (!activeButton.length > 0) {
-	// 		setDisplayedGames(games);
-	// 	} else {
-	// 		setDisplayedGames(newBets);
-	// 	}
-	// }, [activeButton]);
-
 	const loadButtons = async () => {
 		setLoadingGames(true);
 		try {
@@ -49,11 +32,14 @@ const Home = ({ navigation }) => {
 	};
 
 	const loadGames = async () => {
+		setLoadingGames(true);
 		try {
 			const response = await api.get("/games");
 			setGames(response.data);
+			setLoadingGames(false);
 		} catch (error) {
 			console.log(error.message);
+			setLoadingGames(false);
 		}
 	};
 
@@ -73,6 +59,14 @@ const Home = ({ navigation }) => {
 			setDisplayedGames(games);
 		}
 	};
+
+	useEffect(() => {
+		let filteredGame = [];
+
+		filteredGame = games.filter((item) => activeButton.includes(item.name));
+
+		setDisplayedGames(filteredGame);
+	}, [activeButton]);
 
 	return (
 		<>
@@ -98,7 +92,9 @@ const Home = ({ navigation }) => {
 
 				<S.GamesContainer>
 					<ScrollView>
-						{games && activeButton.length < 0 ? (
+						{loadingGames ? (
+							<Text>Carregando jogos...</Text>
+						) : games.length > 0 && displayedGames.length < 1 ? (
 							games.map((game, index) => (
 								<Game
 									key={index}
@@ -121,7 +117,15 @@ const Home = ({ navigation }) => {
 								/>
 							))
 						) : (
-							<Text>Nao possui jogos</Text>
+							<S.EmptyGame>
+								Você ainda não possui jogos. Aperte no{" "}
+								<MaterialIcons
+									name="monetization-on"
+									size={60}
+									color="#B5C401"
+								/>{" "}
+								para começar a jogar.
+							</S.EmptyGame>
 						)}
 					</ScrollView>
 				</S.GamesContainer>

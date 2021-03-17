@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import Input from "../../components/Input";
+import { useSelector } from "react-redux";
 import * as S from "./styles";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
 
 const Account = () => {
+	const auth = useSelector((state) => {
+		return {
+			user: state.auth.user,
+		};
+	});
 	const [hidePassword, setHidePassword] = useState(true);
 	const { register, handleSubmit, setValue } = useForm();
 
 	useEffect(() => {
 		register("username");
-		register("email");
+
 		register("password");
+		register("password_confirmation");
 	}, [register]);
 
 	const handleShowPassword = () => {
 		setHidePassword(!hidePassword);
 	};
 
-	const handleLogin = (data) => {
+	const handleAccount = (data) => {
 		console.log(data);
+		console.log(auth.user);
 	};
 
 	return (
@@ -27,6 +35,7 @@ const Account = () => {
 			<S.Header>Account</S.Header>
 			<S.Card>
 				<Input
+					placeholder={auth.user.username}
 					name="username"
 					label={"Username"}
 					onChangeText={(text) => {
@@ -34,6 +43,8 @@ const Account = () => {
 					}}
 				/>
 				<Input
+					disabled
+					placeholder={auth.user.email}
 					name="email"
 					label={"Email"}
 					onChangeText={(text) => {
@@ -71,7 +82,7 @@ const Account = () => {
 					)}
 				</S.ShowPasswordButton>
 
-				<S.SaveChangesButton onPress={handleSubmit(handleLogin)}>
+				<S.SaveChangesButton onPress={handleSubmit(handleAccount)}>
 					<S.SaveText>
 						Save
 						<AntDesign name="arrowright" size={28} color="#b5c401" />

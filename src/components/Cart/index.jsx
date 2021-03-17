@@ -43,7 +43,7 @@ const Cart = ({ navigation }) => {
 				alert("Seu jogos foras salvos com sucesso!");
 				console.log(response);
 				dispatch(clearCart());
-				navigation.push("/home");
+				navigation.push("Home");
 			} catch (err) {
 				console.log(err);
 				alert(
